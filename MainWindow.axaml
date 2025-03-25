@@ -1,0 +1,119 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AgentsSecond.MainWindow"
+        x:CompileBindings="False"
+        Title="AgentsSecond">
+
+	<Window.Resources>
+		<ItemsPanelTemplate x:Key="WrapItemsPanel">
+			<UniformGrid Columns="4" Rows="0" Margin="10"/>
+		</ItemsPanelTemplate>
+	</Window.Resources>
+
+	<DockPanel>
+		<Grid DockPanel.Dock="Top"
+              Margin="10"
+              ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,*"
+              RowDefinitions="Auto"
+              VerticalAlignment="Top">
+
+			<StackPanel Grid.Column="0" Spacing="5" Margin="0,0,15,0">
+				<TextBlock Text="По скидке:" FontWeight="Bold"/>
+				<ComboBox x:Name="discountCombox" Width="120">
+					<ComboBoxItem>По убыванию</ComboBoxItem>
+					<ComboBoxItem>По возрастанию</ComboBoxItem>
+				</ComboBox>
+			</StackPanel>
+
+			<StackPanel Grid.Column="1" Spacing="5" Margin="0,0,15,0">
+				<TextBlock Text="По приоритету:" FontWeight="Bold"/>
+				<ComboBox x:Name="priorityCombox" Width="120">
+					<ComboBoxItem>По убыванию</ComboBoxItem>
+					<ComboBoxItem>По возрастанию</ComboBoxItem>
+				</ComboBox>
+			</StackPanel>
+
+			<StackPanel Grid.Column="2" Spacing="5" Margin="0,0,15,0">
+				<TextBlock Text="По наименованию:" FontWeight="Bold"/>
+				<ComboBox x:Name="titleCombox" Width="120">
+					<ComboBoxItem>По убыванию</ComboBoxItem>
+					<ComboBoxItem>По возрастанию</ComboBoxItem>
+				</ComboBox>
+			</StackPanel>
+
+			<StackPanel Grid.Column="3" Spacing="5" Margin="0,0,15,0">
+				<TextBlock Text="По типу:" FontWeight="Bold"/>
+				<ComboBox x:Name="typeCombox" Width="120"/>
+			</StackPanel>
+
+			<StackPanel Grid.Column="4" Spacing="5" Margin="0,0,15,0">
+				<TextBlock Text="Искать агентов:" FontWeight="Bold"/>
+				<TextBox x:Name="SearchBox" Width="200"/>
+			</StackPanel>
+		</Grid>
+
+		<ScrollViewer VerticalScrollBarVisibility="Auto">
+			<ListBox x:Name="AgentListBox"
+                     ItemsPanel="{StaticResource WrapItemsPanel}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+				<ListBox.Styles>
+					<Style Selector="ListBoxItem">
+						<Setter Property="Padding" Value="0"/>
+						<Setter Property="Margin" Value="5"/>
+					</Style>
+				</ListBox.Styles>
+
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border BorderBrush="#DDD" BorderThickness="1"
+                                CornerRadius="8" Width="220" Height="220"
+                                Background="#FFF" Padding="10">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+
+								<StackPanel Grid.Row="0" Spacing="2">
+									<TextBlock Text="Наименование:" FontWeight="Bold"/>
+									<TextBlock Text="{Binding Title}" TextWrapping="Wrap"
+                                               TextTrimming="CharacterEllipsis" MaxHeight="40"/>
+								</StackPanel>
+
+								<StackPanel Grid.Row="1" Spacing="2" Margin="0,5,0,0">
+									<TextBlock Text="Продажи:" FontWeight="Bold"/>
+									<TextBlock Text="{Binding NumberSales}"/>
+								</StackPanel>
+
+								<StackPanel Grid.Row="2" Spacing="2" Margin="0,5,0,0">
+									<TextBlock Text="Скидка:" FontWeight="Bold"/>
+									<TextBlock Text="{Binding Discount}%"/>
+								</StackPanel>
+
+								<StackPanel Grid.Row="3" Spacing="2" Margin="0,5,0,0">
+									<TextBlock Text="Телефон:" FontWeight="Bold"/>
+									<TextBlock Text="{Binding Phone}"/>
+								</StackPanel>
+
+								<StackPanel Grid.Row="4" Spacing="2" Margin="0,5,0,0">
+									<TextBlock Text="Тип:" FontWeight="Bold"/>
+									<TextBlock Text="{Binding AgentType}"
+                                               TextWrapping="Wrap"
+                                               TextTrimming="CharacterEllipsis"/>
+								</StackPanel>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</ScrollViewer>
+	</DockPanel>
+</Window>
