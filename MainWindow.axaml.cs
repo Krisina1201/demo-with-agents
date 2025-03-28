@@ -1,10 +1,16 @@
 using AgentsSecond.Models;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Media;
+using Metsys.Bson;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Linq;
 
 namespace AgentsSecond;
@@ -17,6 +23,7 @@ public class AgentListBox
     public string Phone { get; set; }
     public string AgentType { get; set; }
     public int Priority { get; set; }
+    public string Email { get; set; }
 }
 
 public class checkDisc
@@ -59,7 +66,8 @@ public partial class MainWindow : Window
             ).ToString() + "%",
             Phone = it.Phone,
             AgentType = it.AgentType.Title,
-            Priority = it.Priority
+            Priority = it.Priority,
+            Email = it.Email
         }).ToList();
 
         services = new ObservableCollection<AgentListBox>(dataAgent);
@@ -74,6 +82,8 @@ public partial class MainWindow : Window
         priorityCombox.SelectionChanged += sortComboxByPriority;
         titleCombox.SelectionChanged += sortComboxByTitle;
         typeCombox.SelectionChanged += sortComboboxByType;
+
+        SearchBox.TextChanged += SearchBoxChanging;
     }
 
     public void sortComboboxByType(object sender, SelectionChangedEventArgs e)
@@ -214,6 +224,33 @@ public partial class MainWindow : Window
         }
     }
 
+
+    public void SearchBoxChanging(object sender, TextChangedEventArgs e)
+    {
+        var searchText = SearchBox.Text.ToLower();
+
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            services.Clear();
+            foreach (var item in dataAgent)
+            {
+                services.Add(item);
+            }
+        }
+        else
+        {
+            var filteredService = dataAgent.Where(s => s.Email.ToLower().Contains(searchText) ||
+                                                    (s.Phone.ToLower().Contains(searchText))).ToList();
+            services.Clear();
+            foreach(var item in filteredService)
+            {
+                services.Add(item);
+            }
+        }
+    }
+
+
+
     private ObservableCollection<AgentListBox> LoadServicesFromDatabase()
     {
         using var context = new AkapylkaContext();
@@ -241,7 +278,8 @@ public partial class MainWindow : Window
             ).ToString() + "%",
             Phone = it.Phone,
             AgentType = it.AgentType.Title,
-            Priority = it.Priority
+            Priority = it.Priority,
+            Email = it.Email
         }).ToList();
 
         return new ObservableCollection<AgentListBox>(dataAgent);
@@ -253,6 +291,30 @@ public partial class MainWindow : Window
         if (sum < 50000) return 5;
         if (sum < 150000) return 10;
         if (sum < 500000) return 20;
-        return 25;
+        else
+        {
+
+            //SaleTextBlock.Foreground = Brushes.LightGreen;
+            return 25;
+        }
+    }
+
+    private void OnListBoxDoubleTapped(object sender, TappedEventArgs e)
+    {
+        if (AgentListBox.SelectedItem is AgentListBox selectedItem)
+        {
+            AkapylkaContext akapylkaContext = new AkapylkaContext();
+
+            var agentSelect = akapylkaContext.Agents.FirstOrDefault(e => e.Email == selectedItem.Email);
+
+            AddNewAgent detailWindow = new AddNewAgent(agentSelect!);
+            detailWindow.Show();
+        }
+    }
+
+    public void OpenAddAgentWindow(object? sender, RoutedEventArgs e)
+    {
+        AddNewAgent addNewAgent = new AddNewAgent();
+        addNewAgent.Show(this);
     }
 }

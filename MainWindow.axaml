@@ -15,50 +15,60 @@
 
 	<DockPanel>
 		<Grid DockPanel.Dock="Top"
-              Margin="10"
-              ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,*"
-              RowDefinitions="Auto"
-              VerticalAlignment="Top">
-
-			<StackPanel Grid.Column="0" Spacing="5" Margin="0,0,15,0">
-				<TextBlock Text="По скидке:" FontWeight="Bold"/>
+      Margin="10"
+      ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*"
+      RowDefinitions="Auto"
+      VerticalAlignment="Center">
+			<StackPanel Grid.Column="0" Margin="0,0,15,0" VerticalAlignment="Center">
+				<TextBlock Text="По скидке:" FontWeight="Bold" Margin="0,0,0,5"/>
 				<ComboBox x:Name="discountCombox" Width="120">
 					<ComboBoxItem>По убыванию</ComboBoxItem>
 					<ComboBoxItem>По возрастанию</ComboBoxItem>
 				</ComboBox>
 			</StackPanel>
-
-			<StackPanel Grid.Column="1" Spacing="5" Margin="0,0,15,0">
-				<TextBlock Text="По приоритету:" FontWeight="Bold"/>
+			
+			<StackPanel Grid.Column="1" Margin="0,0,15,0" VerticalAlignment="Center">
+				<TextBlock Text="По приоритету:" FontWeight="Bold" Margin="0,0,0,5"/>
 				<ComboBox x:Name="priorityCombox" Width="120">
 					<ComboBoxItem>По убыванию</ComboBoxItem>
 					<ComboBoxItem>По возрастанию</ComboBoxItem>
 				</ComboBox>
 			</StackPanel>
 
-			<StackPanel Grid.Column="2" Spacing="5" Margin="0,0,15,0">
-				<TextBlock Text="По наименованию:" FontWeight="Bold"/>
+			<StackPanel Grid.Column="2" Margin="0,0,15,0" VerticalAlignment="Center">
+				<TextBlock Text="По наименованию:" FontWeight="Bold" Margin="0,0,0,5"/>
 				<ComboBox x:Name="titleCombox" Width="120">
 					<ComboBoxItem>По убыванию</ComboBoxItem>
 					<ComboBoxItem>По возрастанию</ComboBoxItem>
 				</ComboBox>
 			</StackPanel>
 
-			<StackPanel Grid.Column="3" Spacing="5" Margin="0,0,15,0">
-				<TextBlock Text="По типу:" FontWeight="Bold"/>
+			<StackPanel Grid.Column="3" Margin="0,0,15,0" VerticalAlignment="Center">
+				<TextBlock Text="По типу:" FontWeight="Bold" Margin="0,0,0,5"/>
 				<ComboBox x:Name="typeCombox" Width="120"/>
 			</StackPanel>
 
-			<StackPanel Grid.Column="4" Spacing="5" Margin="0,0,15,0">
-				<TextBlock Text="Искать агентов:" FontWeight="Bold"/>
+			<StackPanel Grid.Column="4" Margin="0,0,15,0" VerticalAlignment="Center">
+				<TextBlock Text="Искать агентов:" FontWeight="Bold" Margin="0,0,0,5"/>
 				<TextBox x:Name="SearchBox" Width="200"/>
 			</StackPanel>
+
+			<Button Grid.Column="5"
+			Content="Добавить нового агента"
+			Click="OpenAddAgentWindow"
+			VerticalAlignment="Center"
+			Width="200"
+			Height="30"
+			Margin="0,0,15,0"
+			Padding="5"/>
 		</Grid>
 
 		<ScrollViewer VerticalScrollBarVisibility="Auto">
 			<ListBox x:Name="AgentListBox"
-                     ItemsPanel="{StaticResource WrapItemsPanel}"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+				 ItemsPanel="{StaticResource WrapItemsPanel}"
+				 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+				 SelectionMode="Single"
+				 DoubleTapped="OnListBoxDoubleTapped">
 
 				<ListBox.Styles>
 					<Style Selector="ListBoxItem">
@@ -84,7 +94,7 @@
 
 								<StackPanel Grid.Row="0" Spacing="2">
 									<TextBlock Text="Наименование:" FontWeight="Bold"/>
-									<TextBlock Text="{Binding Title}" TextWrapping="Wrap"
+									<TextBlock Text="{Binding Title}" TextWrapping="Wrap" x:Name="SaleTextBlock"
                                                TextTrimming="CharacterEllipsis" MaxHeight="40"/>
 								</StackPanel>
 

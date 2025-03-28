@@ -1,0 +1,133 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AgentsSecond.AddNewAgent"
+        Title="AddNewAgent">
+	<Grid
+		ColumnDefinitions="200,200,*"
+		Name="gridEdit">
+		<StackPanel
+			Grid.Column="0">
+			<TextBlock
+				Text="Наименование">
+			</TextBlock>
+			
+			<TextBox
+				Background="#F4E8D3"
+				x:Name="title">
+			</TextBox>
+			
+			<TextBlock
+				Text="Приоритет:">
+
+			</TextBlock>
+			<TextBox
+				Background="#F4E8D3"
+				x:Name="priority">
+			</TextBox>
+			
+			<TextBlock
+				Text="Адресс:">
+			</TextBlock>
+			<MaskedTextBox
+				Background="#F4E8D3"
+				x:Name="addres">
+			</MaskedTextBox>
+			<TextBlock
+					Text="Mail">
+
+			</TextBlock>
+			<TextBox
+				Background="#F4E8D3"
+				x:Name="mail">
+			</TextBox>
+			<TextBlock
+				Text="Номер телефона:">
+
+			</TextBlock>
+			<TextBox
+				Background="#F4E8D3"
+				x:Name="phone">
+			</TextBox>
+			
+			<TextBlock
+				Text="ИНН">
+
+			</TextBlock>
+			<TextBox
+				Background="#F4E8D3"
+				x:Name="inn">
+			</TextBox>
+			
+			<TextBlock
+				Text="КПП">
+
+			</TextBlock>
+			<TextBox
+				Background="#F4E8D3"
+				x:Name="kpp">
+			</TextBox>
+			<TextBlock
+				Text="Имя директора">
+
+			</TextBlock>
+			<TextBox
+				Background="#F4E8D3"
+				Name="Name">
+			</TextBox>
+			<TextBlock
+				Text="Имя директора">
+
+			</TextBlock>
+			<TextBox
+				Background="#F4E8D3"
+				x:Name="name">
+			</TextBox>
+			
+			<Button
+				Background="#67BA80"
+				Content="Готово"
+				Click="OkButton_Click">
+			</Button>
+		</StackPanel>
+		<StackPanel
+			Margin="10,30,0,0"
+			Grid.Column="1">
+			<TextBlock
+				Text="Тип агента:">
+			</TextBlock>
+
+			<ComboBox
+				Background="#F4E8D3"
+				x:Name="type">
+				<ComboBoxItem>
+					МФО
+				</ComboBoxItem>
+				
+				<ComboBoxItem>
+					ООО
+				</ComboBoxItem>
+				
+				<ComboBoxItem>
+					ЗАО
+				</ComboBoxItem>
+				
+				<ComboBoxItem>
+					МКК
+				</ComboBoxItem>
+				
+				<ComboBoxItem>
+					ОАО
+				</ComboBoxItem>
+				
+				<ComboBoxItem>
+					ПАО
+				</ComboBoxItem>
+			</ComboBox>
+
+		</StackPanel>
+
+	</Grid>
+</Window>
