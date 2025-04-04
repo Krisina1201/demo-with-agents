@@ -4,18 +4,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AgentsSecond.AddNewAgent"
+		xmlns:local="using:AgentsSecond"
         Title="AddNewAgent">
 	<Grid
 		ColumnDefinitions="200,200,*"
 		Name="gridEdit">
-		<StackPanel
+		<StackPanel x:DataType="local:AddNewAgent"
 			Grid.Column="0">
 			<TextBlock
 				Text="Наименование">
 			</TextBlock>
 			
 			<TextBox
-				Background="#F4E8D3"
 				x:Name="title">
 			</TextBox>
 			
@@ -24,7 +24,6 @@
 
 			</TextBlock>
 			<TextBox
-				Background="#F4E8D3"
 				x:Name="priority">
 			</TextBox>
 			
@@ -32,7 +31,6 @@
 				Text="Адресс:">
 			</TextBlock>
 			<MaskedTextBox
-				Background="#F4E8D3"
 				x:Name="addres">
 			</MaskedTextBox>
 			<TextBlock
@@ -40,7 +38,6 @@
 
 			</TextBlock>
 			<TextBox
-				Background="#F4E8D3"
 				x:Name="mail">
 			</TextBox>
 			<TextBlock
@@ -48,7 +45,6 @@
 
 			</TextBlock>
 			<TextBox
-				Background="#F4E8D3"
 				x:Name="phone">
 			</TextBox>
 			
@@ -57,7 +53,6 @@
 
 			</TextBlock>
 			<TextBox
-				Background="#F4E8D3"
 				x:Name="inn">
 			</TextBox>
 			
@@ -66,30 +61,32 @@
 
 			</TextBlock>
 			<TextBox
-				Background="#F4E8D3"
 				x:Name="kpp">
 			</TextBox>
+			
 			<TextBlock
 				Text="Имя директора">
 
 			</TextBlock>
 			<TextBox
-				Background="#F4E8D3"
-				Name="Name">
-			</TextBox>
-			<TextBlock
-				Text="Имя директора">
-
-			</TextBlock>
-			<TextBox
-				Background="#F4E8D3"
 				x:Name="name">
 			</TextBox>
 			
 			<Button
-				Background="#67BA80"
-				Content="Готово"
+				Background="#7fffc1"
+				Content="Челик готов"
 				Click="OkButton_Click">
+			</Button>
+			<Button
+				Background="#ab274f"
+				Content="Удалить челика"
+				Click="Exit_Click"
+				IsVisible="{Binding IsButtonVisible}">
+			</Button>
+			<Button
+				Background="#0b88a8"
+				Content="Посмотреть челика"
+				Click="Hisory_Click">
 			</Button>
 		</StackPanel>
 		<StackPanel
@@ -100,7 +97,6 @@
 			</TextBlock>
 
 			<ComboBox
-				Background="#F4E8D3"
 				x:Name="type">
 				<ComboBoxItem>
 					МФО

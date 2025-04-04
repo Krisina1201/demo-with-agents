@@ -70,10 +70,6 @@
               "target": "Package",
               "version": "[11.2.1, )"
             },
-            "MessageBox": {
-              "target": "Package",
-              "version": "[2.1.0, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.10, )"

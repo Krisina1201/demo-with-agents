@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AgentsSecond;
 
@@ -229,7 +230,7 @@ public partial class MainWindow : Window
     {
         var searchText = SearchBox.Text.ToLower();
 
-        if (string.IsNullOrWhiteSpace(searchText))
+        if (string.IsNullOrWhiteSpace(searchText))   
         {
             services.Clear();
             foreach (var item in dataAgent)
@@ -251,7 +252,7 @@ public partial class MainWindow : Window
 
 
 
-    private ObservableCollection<AgentListBox> LoadServicesFromDatabase()
+    public ObservableCollection<AgentListBox> LoadServicesFromDatabase()
     {
         using var context = new AkapylkaContext();
         var agentsData = context.Agents
@@ -299,7 +300,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private void OnListBoxDoubleTapped(object sender, TappedEventArgs e)
+    private async void OnListBoxDoubleTapped(object sender, TappedEventArgs e)
     {
         if (AgentListBox.SelectedItem is AgentListBox selectedItem)
         {
@@ -308,13 +309,53 @@ public partial class MainWindow : Window
             var agentSelect = akapylkaContext.Agents.FirstOrDefault(e => e.Email == selectedItem.Email);
 
             AddNewAgent detailWindow = new AddNewAgent(agentSelect!);
-            detailWindow.Show();
+            await detailWindow.ShowDialog(this);
+            loadData();
         }
     }
 
-    public void OpenAddAgentWindow(object? sender, RoutedEventArgs e)
+    public void loadData()
+    {
+        AgentListBox.ItemsSource = null;
+        using var context = new AkapylkaContext();
+
+        var agentsData = context.Agents
+            .Include(a => a.ProductSales)
+            .Include(a => a.AgentType)
+            .ToList();
+
+        var discountData = context.ProductSales
+            .Include(ps => ps.Product)
+            .GroupBy(e => e.AgentId)
+            .Select(g => new checkDisc
+            {
+                id = g.Key,
+                sum = g.Sum(e => e.ProductCount * e.Product.MinCostForAgent)
+            })
+            .ToList();
+
+        dataAgent = agentsData.Select(it => new AgentListBox
+        {
+            Title = it.Title,
+            NumberSales = it.ProductSales.Sum(ps => ps.ProductCount),
+            Discount = checkDiskount(
+                discountData.FirstOrDefault(t => t.id == it.Id)?.sum ?? 0
+            ).ToString() + "%",
+            Phone = it.Phone,
+            AgentType = it.AgentType.Title,
+            Priority = it.Priority,
+            Email = it.Email
+        }).ToList();
+
+        services = new ObservableCollection<AgentListBox>(dataAgent);
+        AgentListBox.ItemsSource = services;
+    }
+
+    public async void OpenAddAgentWindow(object? sender, RoutedEventArgs e)
     {
         AddNewAgent addNewAgent = new AddNewAgent();
-        addNewAgent.Show(this);
+        await addNewAgent.ShowDialog(this);
+        this.Hide();
+        loadData();
     }
 }

@@ -29,7 +29,7 @@ public partial class Agent
 
     public virtual ICollection<AgentPriorityHistory> AgentPriorityHistories { get; set; } = new List<AgentPriorityHistory>();
 
-    public virtual AgentType AgentType { get; set; } = null!;
+    public virtual AgentType AgentType { get; set; }
 
     public virtual ICollection<ProductSale> ProductSales { get; set; } = new List<ProductSale>();
 
