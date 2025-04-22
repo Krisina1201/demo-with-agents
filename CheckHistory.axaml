@@ -10,7 +10,8 @@
         Width="800" Height="450">
 	<DockPanel>
 		<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-			<Button Grid.Row="0" Click="AddButton_CLick" Content="Добавить" HorizontalAlignment="Right"/>
+			<Button Grid.Row="0" Content="Назад" Margin="5" Background="Firebrick" Click="BackButton"/>
+			<Button Grid.Row="1" Click="AddButton_CLick" Content="Добавить" HorizontalAlignment="Right" Background="GreenYellow"/>
 		</StackPanel>
 		<ListBox x:Name="HistoryListBox">
 			<ListBox.ItemTemplate>
@@ -31,6 +32,7 @@
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
 
 								<StackPanel Grid.Row="0">
@@ -46,6 +48,10 @@
 								<StackPanel Grid.Row="2">
 									<TextBlock Text="Количество товара:" FontWeight="Bold"/>
 									<TextBlock Text="{Binding Count}"/>
+								</StackPanel>
+
+								<StackPanel Grid.Row="3">
+									<Button Content="Удалить" Click="DeleteProductClick" Background="Red"/>
 								</StackPanel>
 							</Grid>
 						</Grid>

@@ -6,28 +6,31 @@
         x:Class="AgentsSecond.addingNewProduct"
         Title="addingNewProduct">
 	<DockPanel>
-		<StackPanel DockPanel.Dock="Top">
-			<StackPanel>
-				<TextBlock Text="Выберите название агента:"/>
-				<ComboBox x:Name="AgentsCombobox"/>
+		<StackPanel DockPanel.Dock="Top" >
+			<StackPanel Margin="10" Spacing="5">
+				<TextBlock Text="Выберите название агента:" />
+				<ComboBox x:Name="AgentsCombobox" Width="150" HorizontalAlignment="Left"/>
 			</StackPanel>
 
-			<StackPanel>
+			<StackPanel Margin="10" Spacing="5">
 				<TextBlock Text="Выберите навзвание товара:"/>
-				<ComboBox x:Name="ProductCombobox"/>
+				<ComboBox x:Name="ProductCombobox" Width="150" HorizontalAlignment="Left"/>
 			</StackPanel>
 
-			<StackPanel>
+			<StackPanel Margin="10" Spacing="5" Width="150" HorizontalAlignment="Left" >
 				<TextBlock Text="Введите дату:"/>
 				<TextBox x:Name="DataBox"/>
 			</StackPanel>
 
-			<StackPanel>
+			<StackPanel Margin="10" Spacing="5">
 				<TextBlock Text="Введите количество товаров:"/>
-				<TextBox x:Name="CountBox"/>
+				<TextBox x:Name="CountBox" Width="150" HorizontalAlignment="Left"/>
 			</StackPanel>
-			
-			<Button Content="Добавить" Click="AddProductClick"/>
+
+			<StackPanel Orientation="Horizontal" Margin="10" Spacing="15">
+				<Button Content="Добавить" Click="AddProductClick" Background="GreenYellow"/>
+				
+			</StackPanel>
 		</StackPanel>
 		
 	</DockPanel>

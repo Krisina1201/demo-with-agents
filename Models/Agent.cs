@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Media.Imaging;
+using System;
 using System.Collections.Generic;
 
 namespace AgentsSecond.Models;
@@ -27,11 +28,26 @@ public partial class Agent
 
     public int Priority { get; set; }
 
+
+    public Bitmap? LogoImage
+    {
+        get
+        {
+            try
+            {
+                return new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "/" + Logo);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }
     public virtual ICollection<AgentPriorityHistory> AgentPriorityHistories { get; set; } = new List<AgentPriorityHistory>();
 
     public virtual AgentType AgentType { get; set; }
 
     public virtual ICollection<ProductSale> ProductSales { get; set; } = new List<ProductSale>();
 
-    public virtual ICollection<Shop> Shops { get; set; } = new List<Shop>();
+    public virtual ICollection<Shop>? Shops { get; set; } = new List<Shop>();
 }

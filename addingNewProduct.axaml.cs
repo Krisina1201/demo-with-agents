@@ -30,16 +30,18 @@ public partial class addingNewProduct : Window
         int agentId = context.Agents.FirstOrDefault(e => e.Title == agent).Id;
         int productId = context.Products.FirstOrDefault(e => e.Title == product).Id;
 
-        context.ProductSales.Add(new ProductSale
+        ProductSale chelick = new ProductSale
         {
-            Id = context.ProductSales.Select(e => e.Id).Count() + 1,
+            Id = context.ProductSales.Select(e => e.Id).Count() + 2,
             ProductId = productId,
             AgentId = agentId,
             SaleDate = date,
             ProductCount = count
-        });
+        };
+
+        context.ProductSales.Add(chelick);
         context.SaveChanges();
-        CheckHistory checkHistory = new CheckHistory();
-        checkHistory.Show();
+        Close(this);
     }
+    
 }

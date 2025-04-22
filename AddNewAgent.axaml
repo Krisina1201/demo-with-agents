@@ -10,7 +10,8 @@
 		ColumnDefinitions="200,200,*"
 		Name="gridEdit">
 		<StackPanel x:DataType="local:AddNewAgent"
-			Grid.Column="0">
+			Grid.Column="0" >
+			<Button Content="Назад" Background="Firebrick" Click="BackButton"/>
 			<TextBlock
 				Text="Наименование">
 			</TextBlock>
@@ -80,18 +81,20 @@
 			<Button
 				Background="#ab274f"
 				Content="Удалить челика"
-				Click="Exit_Click"
+				Click="Delete_Click"
 				IsVisible="{Binding IsButtonVisible}">
 			</Button>
 			<Button
 				Background="#0b88a8"
 				Content="Посмотреть челика"
-				Click="Hisory_Click">
+				Click="Hisory_Click"
+				IsVisible="{Binding IsButtonVisibleGet}">
 			</Button>
 		</StackPanel>
 		<StackPanel
 			Margin="10,30,0,0"
-			Grid.Column="1">
+			Grid.Column="1"
+			Spacing="15">
 			<TextBlock
 				Text="Тип агента:">
 			</TextBlock>

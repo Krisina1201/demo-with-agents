@@ -80,8 +80,8 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Border BorderBrush="#DDD" BorderThickness="1"
-                                CornerRadius="8" Width="220" Height="220"
-                                Background="#FFF" Padding="10">
+								CornerRadius="8" Width="220" Height="220"
+								Background="#FFF" Padding="10">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
@@ -92,32 +92,37 @@
 									<RowDefinition Height="*"/>
 								</Grid.RowDefinitions>
 
-								<StackPanel Grid.Row="0" Spacing="2">
+								<!-- Добавьте Image в начало -->
+								<Image Grid.Row="0" Width="50" Height="50" Source="{Binding GetImage}"
+									   HorizontalAlignment="Center" Margin="0,0,0,5"/>
+
+								<StackPanel Grid.Row="1" Spacing="2">
 									<TextBlock Text="Наименование:" FontWeight="Bold"/>
 									<TextBlock Text="{Binding Title}" TextWrapping="Wrap" x:Name="SaleTextBlock"
-                                               TextTrimming="CharacterEllipsis" MaxHeight="40"/>
+											   TextTrimming="CharacterEllipsis" MaxHeight="40"/>
 								</StackPanel>
 
-								<StackPanel Grid.Row="1" Spacing="2" Margin="0,5,0,0">
+								<!-- Остальные элементы сдвигаем на 1 строку вниз -->
+								<StackPanel Grid.Row="2" Spacing="2" Margin="0,5,0,0">
 									<TextBlock Text="Продажи:" FontWeight="Bold"/>
 									<TextBlock Text="{Binding NumberSales}"/>
 								</StackPanel>
 
-								<StackPanel Grid.Row="2" Spacing="2" Margin="0,5,0,0">
+								<StackPanel Grid.Row="3" Spacing="2" Margin="0,5,0,0">
 									<TextBlock Text="Скидка:" FontWeight="Bold"/>
 									<TextBlock Text="{Binding Discount}%"/>
 								</StackPanel>
 
-								<StackPanel Grid.Row="3" Spacing="2" Margin="0,5,0,0">
+								<StackPanel Grid.Row="4" Spacing="2" Margin="0,5,0,0">
 									<TextBlock Text="Телефон:" FontWeight="Bold"/>
 									<TextBlock Text="{Binding Phone}"/>
 								</StackPanel>
 
-								<StackPanel Grid.Row="4" Spacing="2" Margin="0,5,0,0">
+								<StackPanel Grid.Row="5" Spacing="2" Margin="0,5,0,0">
 									<TextBlock Text="Тип:" FontWeight="Bold"/>
 									<TextBlock Text="{Binding AgentType}"
-                                               TextWrapping="Wrap"
-                                               TextTrimming="CharacterEllipsis"/>
+											   TextWrapping="Wrap"
+											   TextTrimming="CharacterEllipsis"/>
 								</StackPanel>
 							</Grid>
 						</Border>

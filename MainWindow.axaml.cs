@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Metsys.Bson;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,9 +24,14 @@ public class AgentListBox
     public int NumberSales { get; set; }
     public string Discount { get; set; }
     public string Phone { get; set; }
+
+    public string Logo { get; set; }
     public string AgentType { get; set; }
     public int Priority { get; set; }
     public string Email { get; set; }
+
+
+    public Bitmap GetImage { get; set; }
 }
 
 public class checkDisc
@@ -68,7 +75,8 @@ public partial class MainWindow : Window
             Phone = it.Phone,
             AgentType = it.AgentType.Title,
             Priority = it.Priority,
-            Email = it.Email
+            Email = it.Email,
+            GetImage = it.LogoImage
         }).ToList();
 
         services = new ObservableCollection<AgentListBox>(dataAgent);
@@ -116,112 +124,87 @@ public partial class MainWindow : Window
 
     public void sortComboxByDiscount(object sender, SelectionChangedEventArgs e)
     {
-        var selectedItem = discountCombox.SelectedItem;
+        var selectedItem = discountCombox.SelectedItem as ComboBoxItem;
+        string selectedText = selectedItem.Content?.ToString();
 
-        switch (selectedItem)
+        if (selectedText == "По возрастанию")
         {
-            case "По возрастанию":
-                var sortedAscending = services
+            var sortedAscending = services
                     .OrderBy(s => int.Parse(s.Discount.Replace("%", "")))
                     .ToList();
-                services.Clear();
-                foreach (var item in sortedAscending)
-                {
-                    services.Add(item);
-                }
-                break;
-            case "По убыванию":
-                var sortedDescending = services
-                    .OrderByDescending(s => int.Parse(s.Discount.Replace("%", "")))
-                    .ToList();
-                services.Clear();
-                foreach (var item in sortedDescending)
-                {
-                    services.Add(item);
-                }
-                break;
-            default:
-                var unsortedServices = LoadServicesFromDatabase();
-                services.Clear();
-                foreach (var item in unsortedServices)
-                {
-                    services.Add(item);
-                }
-                break;
+            services.Clear();
+            foreach (var item in sortedAscending)
+            {
+                services.Add(item);
+            }
+        } else
+        {
+            var sortedDescending = services
+                        .OrderByDescending(s => int.Parse(s.Discount.Replace("%", "")))
+                        .ToList();
+            services.Clear();
+            foreach (var item in sortedDescending)
+            {
+                services.Add(item);
+            }
         }
     }
 
     public void sortComboxByTitle(object sender, SelectionChangedEventArgs e)
     {
-        var selectedItem = titleCombox.SelectedItem;
+        var selectedItem = titleCombox.SelectedItem as ComboBoxItem;
+        string selectedText = selectedItem.Content?.ToString();
 
-        switch (selectedItem)
+        if (selectedText == "По возрастанию")
         {
-            case "По возрастанию":
-                var sortedAscending = services
-                    .OrderBy(s => s.Title)
-                    .ToList();
-                services.Clear();
-                foreach (var item in sortedAscending)
-                {
-                    services.Add(item);
-                }
-                break;
-            case "По убыванию":
-                var sortedDescending = services
-                    .OrderByDescending(s => s.Title)
-                    .ToList();
-                services.Clear();
-                foreach (var item in sortedDescending)
-                {
-                    services.Add(item);
-                }
-                break;
-            default:
-                var unsortedServices = LoadServicesFromDatabase();
-                services.Clear();
-                foreach (var item in unsortedServices)
-                {
-                    services.Add(item);
-                }
-                break;
+            var sortedAscending = services
+            .OrderBy(s => s.Title)
+            .ToList();
+            services.Clear();
+            foreach (var item in sortedAscending)
+            {
+                services.Add(item);
+            }
+        }
+        else
+        {
+            var sortedDescending = services
+            .OrderByDescending(s => s.Title)
+            .ToList();
+            services.Clear();
+            foreach (var item in sortedDescending)
+            {
+                services.Add(item);
+            }
         }
     }
 
     public void sortComboxByPriority(object sender, SelectionChangedEventArgs e)
     {
-        var selectedItem = priorityCombox.SelectedItem;
+        var selectedItem = priorityCombox.SelectedItem as ComboBoxItem;
+        string selectedText = selectedItem.Content?.ToString();
 
-        switch (selectedItem)
+        if (selectedText == "По возрастанию")
         {
-            case "По возрастанию":
-                var sortedAscending = services
+            var sortedAscending = services
                     .OrderBy(s => s.Priority)
                     .ToList();
-                services.Clear();
-                foreach (var item in sortedAscending)
-                {
-                    services.Add(item);
-                }
-                break;
-            case "По убыванию":
-                var sortedDescending = services
-                    .OrderByDescending(s => s.Priority)
-                    .ToList();
-                services.Clear();
-                foreach (var item in sortedDescending)
-                {
-                    services.Add(item);
-                }
-                break;
-            default:
-                var unsortedServices = LoadServicesFromDatabase();
-                services.Clear();
-                foreach (var item in unsortedServices)
-                {
-                    services.Add(item);
-                }
-                break;
+            services.Clear();
+            foreach (var item in sortedAscending)
+            {
+                services.Add(item);
+            }
+        } 
+        else
+        {
+            var sortedDescending = services
+                        .OrderByDescending(s => s.Priority)
+                        .ToList();
+            services.Clear();
+            foreach (var item in sortedDescending)
+            {
+                services.Add(item);
+            }
         }
     }
 
